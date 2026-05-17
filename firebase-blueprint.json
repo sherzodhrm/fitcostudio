@@ -1,0 +1,109 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User specific goals and settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "dailyKcalGoal": { "type": "number" },
+        "proteinGoal": { "type": "number" },
+        "carbsGoal": { "type": "number" },
+        "fatGoal": { "type": "number" },
+        "lang": { "type": "string", "enum": ["en", "ru", "uz"] },
+        "theme": { "type": "string", "enum": ["dark", "creamy"] },
+        "isPremium": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "dailyKcalGoal"]
+    },
+    "CoachMessage": {
+      "title": "Coach Message",
+      "description": "A single message in the chat history",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "model"] },
+        "text": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["role", "text", "timestamp"]
+    },
+    "FoodEntry": {
+      "title": "Food Entry",
+      "description": "A single logged food item",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "portion": { "type": "string" },
+        "kcal": { "type": "number" },
+        "protein": { "type": "number" },
+        "carbs": { "type": "number" },
+        "fat": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "date": { "type": "string" }
+      },
+      "required": ["name", "kcal", "date"]
+    },
+    "WorkoutEntry": {
+      "title": "Workout Entry",
+      "description": "Weights for a specific workout day",
+      "type": "object",
+      "properties": {
+        "dayIndex": { "type": "number" },
+        "weights": { "type": "object" },
+        "date": { "type": "string" }
+      },
+      "required": ["dayIndex", "weights", "date"]
+    },
+    "SuppCheck": {
+      "title": "Supplement Check",
+      "description": "Daily supplement check-in",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "checks": { "type": "object" }
+      },
+      "required": ["date", "checks"]
+    },
+    "MealOverride": {
+      "title": "Meal Override",
+      "description": "Customized meal plan for a specific day/meal",
+      "type": "object",
+      "properties": {
+        "dayIndex": { "type": "number" },
+        "mealKey": { "type": "string" },
+        "food": { "type": "string" },
+        "note": { "type": "string" }
+      },
+      "required": ["dayIndex", "mealKey", "food"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile document"
+    },
+    "/users/{userId}/foodLogs/{logId}": {
+      "schema": "FoodEntry",
+      "description": "Logged food items"
+    },
+    "/users/{userId}/workoutLogs/{workoutId}": {
+      "schema": "WorkoutEntry",
+      "description": "Workout results"
+    },
+    "/users/{userId}/suppLogs/{suppId}": {
+      "schema": "SuppCheck",
+      "description": "Supplement tracker"
+    },
+    "/users/{userId}/mealOverrides/{overrideId}": {
+      "schema": "MealOverride",
+      "description": "Customized meal plans"
+    },
+    "/users/{userId}/coachHistory/{messageId}": {
+      "schema": "CoachMessage",
+      "description": "AI Coach chat history"
+    }
+  }
+}

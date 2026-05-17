@@ -1,0 +1,10 @@
+{
+  "name": "Fitco Studio",
+  "description": "Fitco Studio is a hyper-personalized AI fitness and nutrition coach (formerly Sherzod.Fit). Track calories, macros, and workouts with local awareness.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,71 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 1. DEFAULT DENY
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. HELPERS
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function isValidTimestamp(t) { return t is string && t.size() <= 50; } // Simplified for prototype, ideally request.time
+
+    // 3. VALIDATION SCHEMAS
+    function isValidUser(data) {
+      return data.uid == request.auth.uid 
+        && data.dailyKcalGoal is number
+        && (data.get('proteinGoal', 0) is number)
+        && (data.get('carbsGoal', 0) is number)
+        && (data.get('fatGoal', 0) is number)
+        && (data.get('isPremium', false) is bool)
+        && data.keys().hasAll(['uid', 'dailyKcalGoal']);
+    }
+
+    function isValidFoodEntry(data) {
+      return data.name is string && data.name.size() <= 100
+        && data.kcal is number
+        && data.date is string
+        && data.keys().hasAll(['name', 'kcal', 'date']);
+    }
+
+    function isValidCoachMessage(data) {
+      return data.role in ['user', 'model']
+        && data.text is string && data.text.size() <= 5000
+        && data.timestamp is string;
+    }
+
+    // 4. COLLECTION RULES
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow update: if isOwner(userId) 
+        && isValidUser(incoming())
+        && (
+          // Action: Profile Update
+          incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'weight', 'height', 'age', 'gender', 'activity', 'goal', 'dailyKcalGoal', 'proteinGoal', 'carbsGoal', 'fatGoal', 'lang', 'theme', 'isPremium', 'updatedAt'])
+          // WARNING: In production, isPremium should be updated via server-side Webhooks (Stripe/Payme)
+        );
+      
+      match /foodLogs/{logId} {
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(logId) && isValidFoodEntry(incoming());
+        allow update: if isOwner(userId) && isValidFoodEntry(incoming());
+        allow delete: if isOwner(userId);
+      }
+
+      match /coachHistory/{messageId} {
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(messageId) && isValidCoachMessage(incoming());
+      }
+
+      match /workoutLogs/{id} { allow read, write: if isOwner(userId); }
+      match /suppLogs/{id} { allow read, write: if isOwner(userId); }
+      match /mealOverrides/{id} { allow read, write: if isOwner(userId); }
+    }
+  }
+}
