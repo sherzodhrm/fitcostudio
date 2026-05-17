@@ -82,29 +82,29 @@ export default function AuthScreen() {
 
               <div className="space-y-3">
                 <div className="mb-6 flex flex-col items-center">
-                  <button 
+                  <div 
                     onClick={() => {
                       setAgreed(!agreed);
                       setShowConsentError(false);
                     }}
-                    className={`flex items-start gap-3 p-3 rounded-2xl border transition-all text-left group ${agreed ? 'bg-app-accent/10 border-app-accent' : (showConsentError ? 'border-red-500 bg-red-500/10' : 'border-app-border hover:border-app-muted')}`}
+                    className={`cursor-pointer flex items-start gap-3 p-3 rounded-2xl border transition-all text-left group ${agreed ? 'bg-app-accent/10 border-app-accent' : (showConsentError ? 'border-red-500 bg-red-500/10' : 'border-app-border hover:border-app-muted')}`}
                   >
                     <div className={`mt-0.5 shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors ${agreed ? 'bg-app-accent border-app-accent' : 'border-app-muted'}`}>
                       {agreed && <CheckCircle2 className="w-3 h-3 text-black fill-current" />}
                     </div>
                     <div className="text-[10px] font-bold leading-tight text-app-muted">
                       {t.agree_to}{' '}
-                      <button 
+                      <span 
                         onClick={(e) => {
                           e.stopPropagation();
                           setIsLegalOpen(true);
                         }}
-                        className="text-app-accent underline decoration-app-accent/30 underline-offset-2 hover:text-app-accent/80"
+                        className="cursor-pointer text-app-accent underline decoration-app-accent/30 underline-offset-2 hover:text-app-accent/80"
                       >
                         {t.terms_privacy}
-                      </button>
+                      </span>
                     </div>
-                  </button>
+                  </div>
                   {showConsentError && (
                     <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-[9px] text-red-500 font-black mt-2 uppercase tracking-widest">
                       {t.accept_terms}
@@ -197,20 +197,29 @@ export default function AuthScreen() {
               </div>
 
               <div className="flex flex-col items-center">
-                 <button 
+                 <div 
                   onClick={() => {
                     setAgreed(!agreed);
                     setShowConsentError(false);
                   }}
-                  className={`flex items-start gap-3 p-3 rounded-2xl border transition-all text-left w-full ${agreed ? 'bg-app-accent/10 border-app-accent' : (showConsentError ? 'border-red-500 bg-red-500/10' : 'border-app-border hover:border-app-muted')}`}
+                  className={`cursor-pointer flex items-start gap-3 p-3 rounded-2xl border transition-all text-left w-full ${agreed ? 'bg-app-accent/10 border-app-accent' : (showConsentError ? 'border-red-500 bg-red-500/10' : 'border-app-border hover:border-app-muted')}`}
                 >
                   <div className={`mt-0.5 shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors ${agreed ? 'bg-app-accent border-app-accent' : 'border-app-muted'}`}>
                     {agreed && <CheckCircle2 className="w-3 h-3 text-black fill-current" />}
                   </div>
                   <span className="text-[10px] font-bold text-app-muted">
-                    {t.agree_to} <span className="text-app-accent underline">{t.terms_privacy}</span>
+                    {t.agree_to}{' '}
+                    <span 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsLegalOpen(true);
+                      }}
+                      className="cursor-pointer text-app-accent underline decoration-app-accent/30 underline-offset-2 hover:text-app-accent/80"
+                    >
+                      {t.terms_privacy}
+                    </span>
                   </span>
-                </button>
+                </div>
               </div>
 
               <button
