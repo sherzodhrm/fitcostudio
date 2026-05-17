@@ -46,7 +46,7 @@ export default function LegalModal({ isOpen, onClose }: LegalModalProps) {
                   <h3 className="text-sm font-black uppercase tracking-widest">Terms of Service</h3>
                 </div>
                 <div className="text-[11px] leading-relaxed text-app-muted space-y-3 font-medium">
-                  <p>By using SHERZOD.FIT, you agree to these fundamental principles of our service:</p>
+                  <p>By using FITCO STUDIO, you agree to these fundamental principles of our service:</p>
                   <ul className="list-disc pl-4 space-y-2">
                     <li>The app provides AI-generated fitness and nutritional guidance for educational purposes only.</li>
                     <li>Consult a medical professional before starting any high-intensity exercise or strict diet program.</li>
@@ -76,7 +76,7 @@ export default function LegalModal({ isOpen, onClose }: LegalModalProps) {
               <section className="p-4 bg-app-accent/5 border border-app-accent/10 rounded-2xl">
                 <p className="text-[10px] text-app-accent font-black uppercase tracking-tighter mb-1">Medical Disclaimer</p>
                 <p className="text-[10px] text-app-muted font-bold leading-tight">
-                  SHERZOD.FIT is not a medical device. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+                  FITCO STUDIO is not a medical device. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
                 </p>
               </section>
             </div>

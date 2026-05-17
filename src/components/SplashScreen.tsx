@@ -68,7 +68,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
             className="mt-10 text-center"
           >
             <h1 className="text-4xl font-black tracking-tighter text-[#f0ede8]">
-              SHERZOD<span className="text-[#c8f060]">.</span>FIT
+              FITCO<span className="text-[#c8f060]"> </span>STUDIO
             </h1>
             <p className="text-[10px] font-black text-[#555] uppercase tracking-[0.4em] mt-2">
               Precision Engineering

@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.sherzod.fit',
-  appName: 'SHERZOD.FIT',
+  appName: 'FITCO STUDIO',
   webDir: 'dist',
   server: {
     androidScheme: 'https'

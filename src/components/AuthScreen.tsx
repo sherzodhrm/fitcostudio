@@ -75,7 +75,7 @@ export default function AuthScreen() {
                   <Zap className="text-app-accent w-12 h-12 fill-current" />
                 </motion.div>
               </div>
-              <h1 className="text-5xl font-black mb-4 tracking-tighter">SHERZOD<span className="text-app-accent">.</span>FIT</h1>
+              <h1 className="text-5xl font-black mb-4 tracking-tighter uppercase">FITCO<span className="text-app-accent"> </span>STUDIO</h1>
               <p className="text-app-muted mb-12 text-sm leading-relaxed max-w-[260px] mx-auto font-medium">
                 {t.slogan}
               </p>

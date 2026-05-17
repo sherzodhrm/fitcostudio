@@ -1,4 +1,4 @@
-# Security Specification - SHERZOD.FIT
+# Security Specification - FITCO STUDIO
 
 ## Data Invariants
 1. A user can only access their own fitness data, coach history, and profile.
