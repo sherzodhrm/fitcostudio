@@ -107,9 +107,9 @@ export default function Header({ profile, foodLogs }: HeaderProps) {
         </div>
 
         <div className="flex-1 space-y-2">
-          <MacroBar label={t.protein[0]} current={totals.p} goal={profile?.proteinGoal || 145} color="text-[#4a9eff]" barColor="bg-[#4a9eff]" />
-          <MacroBar label={t.carbs[0]} current={totals.c} goal={profile?.carbsGoal || 235} color="text-app-accent" barColor="bg-app-accent" />
-          <MacroBar label={t.fat[0]} current={totals.f} goal={profile?.fatGoal || 56} color="text-[#f5a623]" barColor="bg-[#f5a623]" />
+          <MacroBar label={(t.protein || 'P')[0]} current={totals.p} goal={profile?.proteinGoal || 145} color="text-[#4a9eff]" barColor="bg-[#4a9eff]" />
+          <MacroBar label={(t.carbs || 'C')[0]} current={totals.c} goal={profile?.carbsGoal || 235} color="text-app-accent" barColor="bg-app-accent" />
+          <MacroBar label={(t.fat || 'F')[0]} current={totals.f} goal={profile?.fatGoal || 56} color="text-[#f5a623]" barColor="bg-[#f5a623]" />
           <p className="text-[9px] text-app-muted pt-1 font-mono font-bold uppercase tracking-widest">{Math.round(remaining)} {t.remaining}</p>
         </div>
       </div>

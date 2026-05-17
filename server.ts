@@ -76,6 +76,7 @@ async function startServer() {
       
       const chat = ai.chats.create({
         model: "gemini-3-flash-preview",
+        history: history,
         config: {
           systemInstruction: `You are an elite fitness and nutrition coach. 
           User Profile: ${JSON.stringify(profile)}.
